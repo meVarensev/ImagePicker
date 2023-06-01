@@ -69,15 +69,20 @@ const FileUpload: React.FC<IFileUploadProps> = ({onFileUpload}) => {
             />
             <label htmlFor="file-upload">
 
-                <MyButton
+                <Button
                     disabled={uploading}
                     startIcon={uploading ? <CircularProgress size={20}/> : <DeleteForeverRoundedIcon/>}
-                    sx={{marginLeft: '15px'}}
                     onClick={handleFileUpload}
                     component="span"
+                    sx={{background: 'var(--btn-color-grey)',
+                        color: 'black',
+                        marginLeft: '15px',
+                        '&:hover': {
+                            backgroundColor: 'var(--btn-color-grey-hover)',
+                        }}}
                 >
                     {uploading ? 'Загрузка...' : 'Выбрать'}
-                </MyButton>
+                </Button>
             </label>
             {/*{selectedFile && (*/}
             {/*    <Box mt={2}>*/}
