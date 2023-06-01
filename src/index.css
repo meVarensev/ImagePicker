@@ -11,12 +11,17 @@
     /* Other */
     --radii: 0.5rem;
     --family: 'Roboto', sans-serif;
+    --border: 1px solid #949494;
 
     /*!* color*/
     --color-text: #3f3f3f;
     --color-bg: #ffffff;
     --color-ui-base: #c9c9c9;
     --shadow: #676767 0 0 8px;
+
+    --btn-color-grey: #dfdfdf;
+    --btn-color-grey-hover: #c5c5c5;
+
 }
 
 
