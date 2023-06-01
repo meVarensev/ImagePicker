@@ -1,71 +1,90 @@
-import React, {ChangeEvent, useState} from 'react';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
+import React, {useState} from 'react';
+import {Button, CircularProgress, Box} from '@mui/material';
+import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
+import {styled} from '@mui/system';
 
-const FileUpload: React.FC = () => {
-    const [selectedImage, setSelectedImage] = useState<File | null>(null);
+const MyButton = styled(Button)(({theme}) => ({
+    background: 'var(--btn-color-grey)',
+    color: 'black',
+    '&:hover': {
+        backgroundColor: 'var(--btn-color-grey-hover)',
+    },
+}));
 
-    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-        handleFiles(event.target.files);
-    };
 
-    const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-        event.preventDefault();
-        event.stopPropagation();
-        handleFiles(event.dataTransfer.files);
-    };
+type TypeUploadedFile =  {
+    url: string;
+    filename: string;
+    mimetype: string;
+    size: number;
+}
 
-    const handleFiles = (fileList: FileList | null) => {
-        if (fileList && fileList.length > 0) {
-            const selectedFile = fileList[0];
-            if (selectedFile.type.startsWith('image/')) {
-                setSelectedImage(selectedFile);
-            } else {
-                console.log('Invalid file type. Please select an image file.');
+interface IFileUploadProps {
+    onFileUpload: (file: TypeUploadedFile) => void;
+}
+
+const FileUpload: React.FC<IFileUploadProps> = ({onFileUpload}) => {
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [uploading, setUploading] = useState<boolean>(false);
+
+    const handleFileUpload = async () => {
+        if (selectedFile) {
+            try {
+                setUploading(true);
+
+                // Simulating file upload delay
+                await new Promise((resolve) => setTimeout(resolve, 2000));
+
+                const uploadedFile: TypeUploadedFile = {
+                    url: URL.createObjectURL(selectedFile),
+                    filename: selectedFile.name,
+                    mimetype: selectedFile.type,
+                    size: selectedFile.size,
+                };
+
+                // Pass the uploaded file data to the parent component
+                onFileUpload(uploadedFile);
+            } catch (error) {
+                console.error('Error uploading file:', error);
+            } finally {
+                setUploading(false);
             }
         }
     };
 
-    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-        event.preventDefault();
-        event.stopPropagation();
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files.length > 0) {
+            setSelectedFile(event.target.files[0]);
+        }
     };
 
     return (
-        <>
-            <div
-                onDrop={handleDrop}
-                onDragOver={handleDragOver}
-                style={{
-                    width: 200,
-                    height: 125,
-                    padding: 10,
-                    border: '1px dashed grey',
-                    borderRadius: "10px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center"
-                }}
-            >
-                <input
-                    type="file"
-                    accept="image/*" // Only allow image files
-                    onChange={handleFileChange}
-                    style={{display: 'none'}}
-                    id="file-upload-input"
-                />
-                <label htmlFor="file-upload-input">
-                    <Button variant="text" component="span" sx={{textAlign: "center"}}>
-                        Добавить фотографию
-                    </Button>
-                </label>
-            </div>
-            {selectedImage && (
-                <Box sx={{mt: 2}}>
-                    <img src={URL.createObjectURL(selectedImage)} alt="Selected Image"/>
-                </Box>
-            )}
-        </>
+        <div>
+            <input
+                accept="image/*"
+                style={{display: 'none'}}
+                id="file-upload"
+                type="file"
+                onChange={handleFileChange}
+            />
+            <label htmlFor="file-upload">
+
+                <MyButton
+                    disabled={uploading}
+                    startIcon={uploading ? <CircularProgress size={20}/> : <DeleteForeverRoundedIcon/>}
+                    sx={{marginLeft: '15px'}}
+                    onClick={handleFileUpload}
+                    component="span"
+                >
+                    {uploading ? 'Загрузка...' : 'Выбрать'}
+                </MyButton>
+            </label>
+            {/*{selectedFile && (*/}
+            {/*    <Box mt={2}>*/}
+            {/*        <img src={URL.createObjectURL(selectedFile)} alt="Selected" width="200" height="200"/>*/}
+            {/*    </Box>*/}
+            {/*)}*/}
+        </div>
     );
 };
 

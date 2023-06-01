@@ -5,6 +5,8 @@ import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import {Button} from "@mui/material";
 import OpenWithRoundedIcon from "@mui/icons-material/OpenWithRounded";
 import {styled} from "@mui/system";
+import {FileUpload} from "./file-upload";
+
 
 const MyButton = styled(Button)(({theme}) => ({
     background: "var(--btn-color-grey)",
@@ -15,19 +17,27 @@ const MyButton = styled(Button)(({theme}) => ({
 
 }));
 
+type TypeUploadedFile =  {
+    url: string;
+    filename: string;
+    mimetype: string;
+    size: number;
+}
+
 const ButtonGroup = () => {
+    const handleFileUpload = (file: TypeUploadedFile) => {
+        // Handle the uploaded file data here
+        console.log('Uploaded file:', file);
+    };
     return (
         <div className={style.buttonGroup}>
-            <div>
+            <div style={{display: "flex"}}>
                 <MyButton variant="contained" disableElevation
                           startIcon={<ClearRoundedIcon/>}>
                     Очистить
                 </MyButton>
 
-                <MyButton variant="contained" disableElevation sx={{marginLeft: "15px"}}
-                          startIcon={<DeleteForeverRoundedIcon/>}>
-                    Выбрать
-                </MyButton>
+                <FileUpload onFileUpload={handleFileUpload} />
             </div>
 
             <Button variant="text" disableElevation style={{color: "black"}}
