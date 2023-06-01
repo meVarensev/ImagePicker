@@ -3,7 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import {GaleryTab} from "./galery";
+import {GaleryTab} from "./galery/galery";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -48,8 +48,8 @@ export const BasicTabs = () => {
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' , display: "flex" ,  justifyContent: "space-around" }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" >
-                    <Tab label="Гаререя" {...a11yProps(0)} />
+                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                    <Tab label="Гаререя" {...a11yProps(0)}  />
                     <Tab label="Шаблоны" {...a11yProps(1)} />
                     <Tab label="Фон" {...a11yProps(2)} />
                 </Tabs>
