@@ -25,17 +25,20 @@ const ButtonGroup = () => {
     const dispatch = useAppDispatch()
 
     const handleFileUpload = (file: TypeUploadedFile) => {
+        if(file){
+            console.log('Uploaded file:', file);
+
+            const uploadedFile = {
+                url: file.url,
+                filename: file.filename,
+                mimetype: file.mimetype,
+                size: file.size,
+            };
+
+            dispatch(addPhoto(uploadedFile))
+        }
         // Handle the uploaded file data here
-        console.log('Uploaded file:', file);
 
-        const uploadedFile = {
-            url: file.url,
-            filename: file.filename,
-            mimetype: file.mimetype,
-            size: file.size,
-        };
-
-        dispatch(addPhoto(uploadedFile))
 
     };
     return (
