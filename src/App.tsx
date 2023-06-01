@@ -5,6 +5,7 @@ import {SectionCarusel} from "./components/carusel/section-carusel";
 import {Logo} from "./components/ui/logo-section/logo";
 import {TabsSection} from "./components/tabs/tabs-section";
 
+
 function App() {
 
     return (

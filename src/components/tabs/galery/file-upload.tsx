@@ -1,23 +1,8 @@
 import React, {useState} from 'react';
-import {Button, CircularProgress, Box} from '@mui/material';
+import {Button, CircularProgress} from '@mui/material';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
-import {styled} from '@mui/system';
-
-const MyButton = styled(Button)(({theme}) => ({
-    background: 'var(--btn-color-grey)',
-    color: 'black',
-    '&:hover': {
-        backgroundColor: 'var(--btn-color-grey-hover)',
-    },
-}));
-
-
-type TypeUploadedFile =  {
-    url: string;
-    filename: string;
-    mimetype: string;
-    size: number;
-}
+import {TypeUploadedFile} from '../../../helper/types';
+import Box from '@mui/material/Box';
 
 interface IFileUploadProps {
     onFileUpload: (file: TypeUploadedFile) => void;
@@ -28,7 +13,7 @@ const FileUpload: React.FC<IFileUploadProps> = ({onFileUpload}) => {
     const [uploading, setUploading] = useState<boolean>(false);
 
     const handleFileUpload = async () => {
-        if (selectedFile) {
+        if (selectedFile !== null) {
             try {
                 setUploading(true);
 
@@ -54,7 +39,7 @@ const FileUpload: React.FC<IFileUploadProps> = ({onFileUpload}) => {
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
-            setSelectedFile(event.target.files[0]);
+            setSelectedFile(() => event.target.files[0]);
         }
     };
 
@@ -66,29 +51,28 @@ const FileUpload: React.FC<IFileUploadProps> = ({onFileUpload}) => {
                 id="file-upload"
                 type="file"
                 onChange={handleFileChange}
+                multiple={false} // Allow only single file selection
             />
             <label htmlFor="file-upload">
-
                 <Button
                     disabled={uploading}
                     startIcon={uploading ? <CircularProgress size={20}/> : <DeleteForeverRoundedIcon/>}
                     onClick={handleFileUpload}
                     component="span"
-                    sx={{background: 'var(--btn-color-grey)',
+                    sx={{
+                        background: 'var(--btn-color-grey)',
                         color: 'black',
                         marginLeft: '15px',
                         '&:hover': {
                             backgroundColor: 'var(--btn-color-grey-hover)',
-                        }}}
+                        },
+                    }}
                 >
                     {uploading ? 'Загрузка...' : 'Выбрать'}
                 </Button>
             </label>
-            {/*{selectedFile && (*/}
-            {/*    <Box mt={2}>*/}
-            {/*        <img src={URL.createObjectURL(selectedFile)} alt="Selected" width="200" height="200"/>*/}
-            {/*    </Box>*/}
-            {/*)}*/}
+
+
         </div>
     );
 };

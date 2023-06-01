@@ -1,11 +1,13 @@
 import React from 'react';
 import style from "./galery.module.scss";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 import {Button} from "@mui/material";
 import OpenWithRoundedIcon from "@mui/icons-material/OpenWithRounded";
 import {styled} from "@mui/system";
 import {FileUpload} from "./file-upload";
+import {TypeUploadedFile} from "../../../helper/types";
+import {useAppDispatch} from "../../../hooks/redux-hooks";
+import {addPhoto} from "../../../store/file-slice";
 
 
 const MyButton = styled(Button)(({theme}) => ({
@@ -17,17 +19,24 @@ const MyButton = styled(Button)(({theme}) => ({
 
 }));
 
-type TypeUploadedFile =  {
-    url: string;
-    filename: string;
-    mimetype: string;
-    size: number;
-}
+
 
 const ButtonGroup = () => {
+    const dispatch = useAppDispatch()
+
     const handleFileUpload = (file: TypeUploadedFile) => {
         // Handle the uploaded file data here
         console.log('Uploaded file:', file);
+
+        const uploadedFile = {
+            url: file.url,
+            filename: file.filename,
+            mimetype: file.mimetype,
+            size: file.size,
+        };
+
+        dispatch(addPhoto(uploadedFile))
+
     };
     return (
         <div className={style.buttonGroup}>
