@@ -4,10 +4,12 @@ import {TypeUploadedFile} from "../helper/types";
 
 interface IInitialState {
     filesGalery: TypeUploadedFile[]
+    draggedImages: TypeUploadedFile[]
 }
 
 const initialState: IInitialState = {
-    filesGalery: []
+    filesGalery: [],
+    draggedImages: []
 }
 
 export const fileSlice = createSlice({
@@ -20,10 +22,20 @@ export const fileSlice = createSlice({
         clearPhoto: (state) => {
             state.filesGalery = []
         },
+        setDraggedImage:(state, action: PayloadAction<TypeUploadedFile>) => {
+            const newImage = action.payload;
+            const existingImage = state.draggedImages.find(
+                (image) => image.filename === newImage.filename
+            );
+
+            if (!existingImage) {
+                state.draggedImages.push(newImage);
+            }
+        },
     },
 })
 
-export const {addPhoto, clearPhoto} = fileSlice.actions
+export const {addPhoto, clearPhoto,setDraggedImage} = fileSlice.actions
 
 
 const fileReducer = fileSlice.reducer

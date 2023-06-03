@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "../carusel/carusel.module.scss";
+import style from "./tab-section.module.scss";
 import {BasicTabs} from "./basic-tabs";
 
 const TabsSection = () => {

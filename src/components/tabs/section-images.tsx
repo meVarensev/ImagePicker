@@ -1,16 +1,16 @@
-import React from 'react';
-import {ImageList, ImageListItem} from "@mui/material";
-import Box from "@mui/material/Box";
+import React, {DragEvent} from 'react';
+import {Box} from '@mui/material';
+import {ImageList, ImageListItem} from '@mui/material';
 import {TypeUploadedFile} from "../../helper/types";
 
 interface ISectionImagesProps {
-    files: TypeUploadedFile[]
+    files: TypeUploadedFile[];
 }
 
 const SectionImages: React.FC<ISectionImagesProps> = ({files}) => {
-    const handleClickImg = (file) => {
-        console.log(file)
-    }
+    const handleDragStart = (e: DragEvent<HTMLImageElement>, file: TypeUploadedFile) => {
+        e.dataTransfer.setData("text/plain", JSON.stringify(file));
+    };
 
     return (
         <Box sx={{height: 520, overflowY: 'scroll'}}>
@@ -18,10 +18,12 @@ const SectionImages: React.FC<ISectionImagesProps> = ({files}) => {
                 {files.map((file) => (
                     <ImageListItem key={file.filename}>
                         <img
-                             src={`${file.url}`}
-                             srcSet={`${file.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                             alt={file.filename}
-                             loading="lazy"
+                            src={`${file.url}`}
+                            srcSet={`${file.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                            alt={file.filename}
+                            loading="lazy"
+                            draggable={true}
+                            onDragStart={(e) => handleDragStart(e, file)}
                         />
                     </ImageListItem>
                 ))}
@@ -32,5 +34,3 @@ const SectionImages: React.FC<ISectionImagesProps> = ({files}) => {
 
 export {SectionImages};
 
-
-// onClick={() => handleClickImg(file)}
