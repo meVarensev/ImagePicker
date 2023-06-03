@@ -1,7 +1,7 @@
 import React from 'react';
 import {ButtonGroup} from "./button-group";
 import Box from "@mui/material/Box";
-import {Typography} from '@mui/material';
+import {ImageList, ImageListItem, Typography} from '@mui/material';
 import {useAppSelector} from '../../../hooks/redux-hooks';
 import {TypeUploadedFile} from "../../../helper/types";
 
@@ -16,7 +16,7 @@ const GaleryTab = () => {
                 width: "100%",
             }}>
 
-                <Box style={{
+                {(files.length === 0 )&& <Box style={{
                     width: 200,
                     height: 125,
                     padding: 20,
@@ -30,15 +30,22 @@ const GaleryTab = () => {
                     <Typography>
                         Добавить фотографию
                     </Typography>
+                </Box>}
+
+                <Box sx={{width: "100%", height: 520, overflowY: 'scroll'}}>
+                    <ImageList variant="masonry" cols={5} gap={8}>
+                        {files.map((file) => (
+                            <ImageListItem key={file.filename}>
+                                <img
+                                    src={`${file.url}`}
+                                    srcSet={`${file.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                    alt={file.filename}
+                                    loading="lazy"
+                                />
+                            </ImageListItem>
+                        ))}
+                    </ImageList>
                 </Box>
-
-                {files.map((file) => (
-                    <Box mt={2} key={file.filename}>
-                        <img src={file.url} alt={file.filename}  width="200" height="200"/>
-                    </Box>
-                ))}
-
-
             </Box>
         </>
     )

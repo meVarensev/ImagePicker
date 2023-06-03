@@ -6,8 +6,7 @@ interface IInitialState {
     files: TypeUploadedFile[]
 }
 
-// Define the initial state using that type
-const initialState:IInitialState= {
+const initialState: IInitialState = {
     files: []
 }
 
@@ -15,13 +14,16 @@ export const fileSlice = createSlice({
     name: 'files',
     initialState,
     reducers: {
-        addPhoto: (state ,  action: PayloadAction<TypeUploadedFile>) => {
+        addPhoto: (state, action: PayloadAction<TypeUploadedFile>) => {
             state.files.push(action.payload)
-        }
+        },
+        clearPhoto: (state) => {
+            state.files = []
+        },
     },
 })
 
-export const { addPhoto } = fileSlice.actions
+export const {addPhoto, clearPhoto} = fileSlice.actions
 
 
 const fileReducer = fileSlice.reducer

@@ -7,7 +7,7 @@ import {styled} from "@mui/system";
 import {FileUpload} from "./file-upload";
 import {TypeUploadedFile} from "../../../helper/types";
 import {useAppDispatch} from "../../../hooks/redux-hooks";
-import {addPhoto} from "../../../store/file-slice";
+import {addPhoto, clearPhoto} from "../../../store/file-slice";
 
 
 const MyButton = styled(Button)(({theme}) => ({
@@ -26,25 +26,24 @@ const ButtonGroup = () => {
 
     const handleFileUpload = (file: TypeUploadedFile) => {
         if(file){
-            console.log('Uploaded file:', file);
-
             const uploadedFile = {
                 url: file.url,
                 filename: file.filename,
                 mimetype: file.mimetype,
                 size: file.size,
             };
-
             dispatch(addPhoto(uploadedFile))
         }
-        // Handle the uploaded file data here
-
-
     };
+
+    const handleClickClearPhotos = () => {
+      dispatch(clearPhoto())
+    }
+
     return (
         <div className={style.buttonGroup}>
             <div style={{display: "flex"}}>
-                <MyButton variant="contained" disableElevation
+                <MyButton variant="contained" disableElevation onClick={handleClickClearPhotos}
                           startIcon={<ClearRoundedIcon/>}>
                     Очистить
                 </MyButton>
