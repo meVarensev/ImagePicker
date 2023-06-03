@@ -23,19 +23,6 @@ const MyButton = styled(Button)(({theme}) => ({
 
 const ButtonGroup = () => {
     const dispatch = useAppDispatch()
-
-    const handleFileUpload = (file: TypeUploadedFile) => {
-        if(file){
-            const uploadedFile = {
-                url: file.url,
-                filename: file.filename,
-                mimetype: file.mimetype,
-                size: file.size,
-            };
-            dispatch(addPhoto(uploadedFile))
-        }
-    };
-
     const handleClickClearPhotos = () => {
       dispatch(clearPhoto())
     }
@@ -48,7 +35,7 @@ const ButtonGroup = () => {
                     Очистить
                 </MyButton>
 
-                <FileUpload onFileUpload={handleFileUpload} />
+                <FileUpload />
             </div>
 
             <Button variant="text" disableElevation style={{color: "black"}}

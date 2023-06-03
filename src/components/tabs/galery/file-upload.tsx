@@ -1,34 +1,39 @@
 import React, { useRef } from 'react';
 import { Button, CircularProgress } from '@mui/material';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
+import { useDispatch } from 'react-redux';
+
 import { TypeUploadedFile } from '../../../helper/types';
+import {useAppDispatch} from "../../../hooks/redux-hooks";
+import {addPhoto} from "../../../store/file-slice";
 
 interface IFileUploadProps {
-    onFileUpload: (file: TypeUploadedFile) => void;
+    // Удалите onFileUpload из пропсов, так как мы будем использовать Redux
 }
 
-const FileUpload: React.FC<IFileUploadProps> = ({ onFileUpload }) => {
+const FileUpload: React.FC<IFileUploadProps> = () => {
     const [uploading, setUploading] = React.useState<boolean>(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const dispatch = useAppDispatch()
 
-    const handleFileUpload = async (file: File) => {
+    const handleFileUpload = async (files: File[]) => {
         try {
             setUploading(true);
 
             // Simulating file upload delay
             await new Promise((resolve) => setTimeout(resolve, 2000));
 
-            const uploadedFile: TypeUploadedFile = {
+            const uploadedFiles: TypeUploadedFile[] = files.map((file) => ({
                 url: URL.createObjectURL(file),
                 filename: file.name,
                 mimetype: file.type,
                 size: file.size,
-            };
+            }));
 
-            // Dispatch the uploaded file action to Redux
-            onFileUpload(uploadedFile);
+            // Dispatch the uploaded files action to Redux
+            dispatch(addPhoto(uploadedFiles)); // Используем dispatch для отправки экшена в Redux
         } catch (error) {
-            console.error('Error uploading file:', error);
+            console.error('Error uploading files:', error);
         } finally {
             setUploading(false);
         }
@@ -36,8 +41,8 @@ const FileUpload: React.FC<IFileUploadProps> = ({ onFileUpload }) => {
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
-            const selectedFile = event.target.files[0];
-            handleFileUpload(selectedFile);
+            const selectedFiles = Array.from(event.target.files);
+            handleFileUpload(selectedFiles);
         }
     };
 
@@ -55,7 +60,7 @@ const FileUpload: React.FC<IFileUploadProps> = ({ onFileUpload }) => {
                 id="file-upload"
                 type="file"
                 onChange={handleFileChange}
-                multiple={false} // Allow only single file selection
+                multiple={true} // Allow multiple file selection
                 ref={fileInputRef} // Assign the ref to the file input element
             />
             <label htmlFor="file-upload">

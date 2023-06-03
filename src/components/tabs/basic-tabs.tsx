@@ -54,7 +54,7 @@ export const BasicTabs = () => {
                     <Tab label="Фон" {...a11yProps(2)} />
                 </Tabs>
             </Box>
-            <TabPanel value={value} index={0}>
+            <TabPanel value={value} index={0}  >
                 <GaleryTab/>
             </TabPanel>
             <TabPanel value={value} index={1}>

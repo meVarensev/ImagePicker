@@ -3,22 +3,22 @@ import {TypeUploadedFile} from "../helper/types";
 
 
 interface IInitialState {
-    files: TypeUploadedFile[]
+    filesGalery: TypeUploadedFile[]
 }
 
 const initialState: IInitialState = {
-    files: []
+    filesGalery: []
 }
 
 export const fileSlice = createSlice({
     name: 'files',
     initialState,
     reducers: {
-        addPhoto: (state, action: PayloadAction<TypeUploadedFile>) => {
-            state.files.push(action.payload)
+        addPhoto: (state, action: PayloadAction<TypeUploadedFile[]>) => {
+            state.filesGalery.push(...action.payload)
         },
         clearPhoto: (state) => {
-            state.files = []
+            state.filesGalery = []
         },
     },
 })
