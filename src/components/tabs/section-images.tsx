@@ -8,7 +8,7 @@ interface ISectionImagesProps {
 }
 
 const SectionImages: React.FC<ISectionImagesProps> = ({files}) => {
-    const handleDragStart = (e: DragEvent<HTMLImageElement>, file: TypeUploadedFile[]) => {
+    const handleDragStart = (e: DragEvent<HTMLImageElement>, file: TypeUploadedFile) => {
         e.dataTransfer.setData("text/plain", JSON.stringify(file));
     };
 
