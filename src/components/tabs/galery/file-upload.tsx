@@ -21,7 +21,7 @@ const FileUpload: React.FC<IFileUploadProps> = () => {
             setUploading(true);
 
             // Simulating file upload delay
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+           await new Promise((resolve) => setTimeout(resolve, 2000));
 
             const uploadedFiles: TypeUploadedFile[] = files.map((file) => ({
                 url: URL.createObjectURL(file),
@@ -30,8 +30,7 @@ const FileUpload: React.FC<IFileUploadProps> = () => {
                 size: file.size,
             }));
 
-            // Dispatch the uploaded files action to Redux
-            dispatch(addPhoto(uploadedFiles)); // Используем dispatch для отправки экшена в Redux
+            dispatch(addPhoto(uploadedFiles));
         } catch (error) {
             console.error('Error uploading files:', error);
         } finally {
@@ -60,8 +59,8 @@ const FileUpload: React.FC<IFileUploadProps> = () => {
                 id="file-upload"
                 type="file"
                 onChange={handleFileChange}
-                multiple={true} // Allow multiple file selection
-                ref={fileInputRef} // Assign the ref to the file input element
+                multiple={true}
+                ref={fileInputRef}
             />
             <label htmlFor="file-upload">
                 <Button
