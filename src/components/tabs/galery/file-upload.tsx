@@ -1,45 +1,49 @@
-import React, {useState} from 'react';
-import {Button, CircularProgress} from '@mui/material';
+import React, { useRef } from 'react';
+import { Button, CircularProgress } from '@mui/material';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
-import {TypeUploadedFile} from '../../../helper/types';
-import Box from '@mui/material/Box';
+import { TypeUploadedFile } from '../../../helper/types';
 
 interface IFileUploadProps {
     onFileUpload: (file: TypeUploadedFile) => void;
 }
 
-const FileUpload: React.FC<IFileUploadProps> = ({onFileUpload}) => {
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [uploading, setUploading] = useState<boolean>(false);
+const FileUpload: React.FC<IFileUploadProps> = ({ onFileUpload }) => {
+    const [uploading, setUploading] = React.useState<boolean>(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleFileUpload = async () => {
-        if (selectedFile !== null) {
-            try {
-                setUploading(true);
+    const handleFileUpload = async (file: File) => {
+        try {
+            setUploading(true);
 
-                // Simulating file upload delay
-                await new Promise((resolve) => setTimeout(resolve, 2000));
+            // Simulating file upload delay
+            await new Promise((resolve) => setTimeout(resolve, 2000));
 
-                const uploadedFile: TypeUploadedFile = {
-                    url: URL.createObjectURL(selectedFile),
-                    filename: selectedFile.name,
-                    mimetype: selectedFile.type,
-                    size: selectedFile.size,
-                };
+            const uploadedFile: TypeUploadedFile = {
+                url: URL.createObjectURL(file),
+                filename: file.name,
+                mimetype: file.type,
+                size: file.size,
+            };
 
-                // Pass the uploaded file data to the parent component
-                onFileUpload(uploadedFile);
-            } catch (error) {
-                console.error('Error uploading file:', error);
-            } finally {
-                setUploading(false);
-            }
+            // Dispatch the uploaded file action to Redux
+            onFileUpload(uploadedFile);
+        } catch (error) {
+            console.error('Error uploading file:', error);
+        } finally {
+            setUploading(false);
         }
     };
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
-            setSelectedFile(event.target.files[0]);
+            const selectedFile = event.target.files[0];
+            handleFileUpload(selectedFile);
+        }
+    };
+
+    const handleClick = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
         }
     };
 
@@ -47,17 +51,18 @@ const FileUpload: React.FC<IFileUploadProps> = ({onFileUpload}) => {
         <div>
             <input
                 accept="image/*"
-                style={{display: 'none'}}
+                style={{ display: 'none' }}
                 id="file-upload"
                 type="file"
                 onChange={handleFileChange}
                 multiple={false} // Allow only single file selection
+                ref={fileInputRef} // Assign the ref to the file input element
             />
             <label htmlFor="file-upload">
                 <Button
                     disabled={uploading}
-                    startIcon={uploading ? <CircularProgress size={20}/> : <DeleteForeverRoundedIcon/>}
-                    onClick={handleFileUpload}
+                    startIcon={uploading ? <CircularProgress size={20} /> : <DeleteForeverRoundedIcon />}
+                    onClick={handleClick} // Trigger file selection
                     component="span"
                     sx={{
                         background: 'var(--btn-color-grey)',
@@ -71,10 +76,8 @@ const FileUpload: React.FC<IFileUploadProps> = ({onFileUpload}) => {
                     {uploading ? 'Загрузка...' : 'Выбрать'}
                 </Button>
             </label>
-
-
         </div>
     );
 };
 
-export {FileUpload};
+export { FileUpload };
