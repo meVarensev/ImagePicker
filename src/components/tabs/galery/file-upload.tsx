@@ -7,9 +7,6 @@ import { TypeUploadedFile } from '../../../helper/types';
 import {useAppDispatch} from "../../../hooks/redux-hooks";
 import {addPhoto} from "../../../store/file-slice";
 
-interface IFileUploadProps {
-    // Удалите onFileUpload из пропсов, так как мы будем использовать Redux
-}
 
 const FileUpload: React.FC<IFileUploadProps> = () => {
     const [uploading, setUploading] = React.useState<boolean>(false);
