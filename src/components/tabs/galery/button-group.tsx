@@ -5,9 +5,8 @@ import {Button} from "@mui/material";
 import OpenWithRoundedIcon from "@mui/icons-material/OpenWithRounded";
 import {styled} from "@mui/system";
 import {FileUpload} from "./file-upload";
-import {TypeUploadedFile} from "../../../helper/types";
 import {useAppDispatch} from "../../../hooks/redux-hooks";
-import {addPhoto, clearPhoto} from "../../../store/file-slice";
+import { clearPhoto} from "../../../store/file-slice";
 
 
 const MyButton = styled(Button)(({theme}) => ({

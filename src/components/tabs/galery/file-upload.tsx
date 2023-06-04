@@ -1,14 +1,12 @@
 import React, { useRef } from 'react';
 import { Button, CircularProgress } from '@mui/material';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
-import { useDispatch } from 'react-redux';
-
 import { TypeUploadedFile } from '../../../helper/types';
 import {useAppDispatch} from "../../../hooks/redux-hooks";
 import {addPhoto} from "../../../store/file-slice";
 
 
-const FileUpload: React.FC<IFileUploadProps> = () => {
+const FileUpload = () => {
     const [uploading, setUploading] = React.useState<boolean>(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const dispatch = useAppDispatch()
