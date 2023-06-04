@@ -1,23 +1,25 @@
-import React, {DragEvent} from 'react';
-import {motion} from 'framer-motion';
-import {Box} from '@mui/material';
-import {TypeUploadedFile} from '../../helper/types';
-import {useAppDispatch} from "../../hooks/redux-hooks";
-import {setDraggedImage} from "../../store/file-slice";
+import React, { DragEvent } from 'react';
+import { motion } from 'framer-motion';
+import { Box } from '@mui/material';
+import { TypeUploadedFile } from '../../helper/types';
+import { useAppDispatch } from '../../hooks/redux-hooks';
+import { setDraggedImage } from '../../store/file-slice';
 
 interface IDropFileProps {
-    activeStep: number
-    getPhotosForCurrentIndex: () =>  TypeUploadedFile[]
+    activeStep: number;
+    getPhotosForCurrentIndex: () => TypeUploadedFile[];
 }
 
-const DropFile: React.FC<IDropFileProps> = ({activeStep, getPhotosForCurrentIndex}) => {
-    const dispatch = useAppDispatch()
+const DropFile: React.FC<IDropFileProps> = ({ activeStep, getPhotosForCurrentIndex }) => {
+    const dispatch = useAppDispatch();
+
     const handleDrop = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         const data = e.dataTransfer.getData('text/plain');
         const file = JSON.parse(data);
-        dispatch(setDraggedImage(file))
+        dispatch(setDraggedImage(file));
     };
+
     const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault();
     };
@@ -27,9 +29,9 @@ const DropFile: React.FC<IDropFileProps> = ({activeStep, getPhotosForCurrentInde
             style={{
                 height: 400,
                 border: '1px dashed gray',
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center"
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
             }}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
@@ -44,8 +46,10 @@ const DropFile: React.FC<IDropFileProps> = ({activeStep, getPhotosForCurrentInde
                             style={{
                                 maxWidth: '100%',
                                 maxHeight: '100%',
-
                             }}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5, delay: index * 0.2 }}
                         />
                     ))}
                 </>
@@ -63,12 +67,10 @@ const DropFile: React.FC<IDropFileProps> = ({activeStep, getPhotosForCurrentInde
                     <span>Перетащите изображение из галереи сюда</span>
                 </Box>
             )}
-
         </div>
     );
 };
 
-export {DropFile};
+export { DropFile };
 
 
-// display: index === activeStep || index === activeStep + 1 ? 'block' : 'none'
