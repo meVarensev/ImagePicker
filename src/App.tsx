@@ -4,9 +4,7 @@ import {ViewAllPhoto} from "./pages/view-all-photo/view-all-photo";
 
 
 function App() {
-
     return (
-
         <div>
             <Router>
                 <Routes>
@@ -15,7 +13,6 @@ function App() {
                 </Routes>
             </Router>
         </div>
-
     );
 }
 

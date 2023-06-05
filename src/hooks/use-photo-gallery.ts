@@ -8,20 +8,19 @@ interface IUsePhotoGallery {
     goToPreviousPhoto: () => void
 }
 
-
-const usePhotoGallery: (draggedImage: TypeUploadedFile[]) => IUsePhotoGallery = (draggedImage: TypeUploadedFile[]) => {
+const usePhotoGallery = (draggedImage: TypeUploadedFile[] , value: number): IUsePhotoGallery => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const goToNextPhoto = () => {
-        setCurrentIndex((prevIndex) => prevIndex + 2);
+        setCurrentIndex((prevIndex) => prevIndex + value);
     };
 
     const goToPreviousPhoto = () => {
-        setCurrentIndex((prevIndex) => prevIndex - 2);
+        setCurrentIndex((prevIndex) => prevIndex - value);
     };
 
     const getPhotosForCurrentIndex = () => {
-        return draggedImage.slice(currentIndex, currentIndex + 2);
+        return draggedImage.slice(currentIndex, currentIndex + value);
     };
 
     return {
@@ -31,5 +30,7 @@ const usePhotoGallery: (draggedImage: TypeUploadedFile[]) => IUsePhotoGallery = 
         getPhotosForCurrentIndex,
     };
 }
+
+//TODO: in progress
 
 export {usePhotoGallery}

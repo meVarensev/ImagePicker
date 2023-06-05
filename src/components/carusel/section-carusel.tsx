@@ -8,12 +8,14 @@ import {IDotsMobileStepperProps} from "../../helper/types";
 
 const SectionCarusel = () => {
     const draggedImage = useAppSelector((state) => state.files.draggedImages)
+    const imgSliceValue = 2
+
     const {
         currentIndex,
         goToNextPhoto,
         goToPreviousPhoto,
         getPhotosForCurrentIndex,
-    } = usePhotoGallery(draggedImage)
+    } = usePhotoGallery(draggedImage , imgSliceValue)
 
     const dotsProps: IDotsMobileStepperProps = {
         lengthImgList: draggedImage.length,

@@ -1,5 +1,5 @@
 import React, {DragEvent} from 'react';
-import {Box} from '@mui/material';
+import {Box, Button} from '@mui/material';
 import {ImageList, ImageListItem} from '@mui/material';
 import {TypeUploadedFile} from "../../helper/types";
 import {useAppDispatch} from "../../hooks/redux-hooks";
@@ -7,14 +7,15 @@ import {setDraggedImage} from "../../store/file-slice";
 
 interface ISectionImagesProps {
     files: TypeUploadedFile[];
+    goToNextPhoto: () => void
 }
 
-const SectionImages: React.FC<ISectionImagesProps> = ({files}) => {
+const SectionImages: React.FC<ISectionImagesProps> = ({files, goToNextPhoto}) => {
     const dispatch = useAppDispatch()
     const handleDragStart = (e: DragEvent<HTMLImageElement>, file: TypeUploadedFile) => {
         e.dataTransfer.setData("text/plain", JSON.stringify(file));
     };
-    const handleClickImg = (img:TypeUploadedFile) => {
+    const handleClickImg = (img: TypeUploadedFile) => {
         dispatch(setDraggedImage(img))
     }
 
@@ -36,6 +37,7 @@ const SectionImages: React.FC<ISectionImagesProps> = ({files}) => {
                     </ImageListItem>
                 ))}
             </ImageList>
+            <Button onClick={goToNextPhoto}>goToNextPhoto</Button>
         </Box>
     );
 };
