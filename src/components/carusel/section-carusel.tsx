@@ -4,6 +4,7 @@ import {DropFile} from "./drop-file";
 import {DotsMobileStepper} from "./dots-mobile-stepper";
 import {usePhotoGallery} from "../../hooks/use-photo-gallery";
 import {useAppSelector} from "../../hooks/redux-hooks";
+import {IDotsMobileStepperProps} from "../../helper/types";
 
 const SectionCarusel = () => {
     const draggedImage = useAppSelector((state) => state.files.draggedImages)
@@ -14,18 +15,20 @@ const SectionCarusel = () => {
         getPhotosForCurrentIndex,
     } = usePhotoGallery(draggedImage)
 
+    const dotsProps: IDotsMobileStepperProps = {
+        lengthImgList: draggedImage.length,
+        goToNextPhoto: goToNextPhoto,
+        goToPreviousPhoto: goToPreviousPhoto,
+        currentIndex: currentIndex,
+    }
 
     return (
         <section className={style.caruselSection}>
             <div className={style.wrapper}>
-                <DropFile  getPhotosForCurrentIndex={getPhotosForCurrentIndex}/>
+                <DropFile getPhotosForCurrentIndex={getPhotosForCurrentIndex}/>
                 {draggedImage.length !== 0 && (
-                    <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100%"}}>
-                        <DotsMobileStepper
-                            lengthImgList={draggedImage.length}
-                            goToNextPhoto={goToNextPhoto}
-                            goToPreviousPhoto={goToPreviousPhoto}
-                            currentIndex={currentIndex}/>
+                    <div className={style.wrapperDots}>
+                        <DotsMobileStepper props={dotsProps}/>
                     </div>
                 )}
             </div>

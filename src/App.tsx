@@ -1,22 +1,21 @@
-import {Header} from "./components/header/header";
-import {Main} from "./components/ui/main/main";
-import {Container} from "./components/ui/container/container";
-import {SectionCarusel} from "./components/carusel/section-carusel";
-import {Logo} from "./components/ui/logo-section/logo";
-import {TabsSection} from "./components/tabs/tabs-section";
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {HomePage} from "./pages/home/home-page";
+import {ViewAllPhoto} from "./pages/view-all-photo/view-all-photo";
 
 
 function App() {
 
     return (
-        <Container>
-            <Header/>
-            <Main>
-                <Logo/>
-                <SectionCarusel/>
-                <TabsSection/>
-            </Main>
-        </Container>
+
+        <div>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<HomePage/>}/>
+                    <Route path="/allPhoto" element={<ViewAllPhoto/>}/>
+                </Routes>
+            </Router>
+        </div>
+
     );
 }
 

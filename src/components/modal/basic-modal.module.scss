@@ -1,17 +1,33 @@
-.modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: var(--color-bg);
-  border: var(--border);
-  box-shadow: var(--shadow);
-  text-align: center;
-  display: flex;
-  gap: 15px;
-  flex-direction: column;
-  padding: 25px;
+div {
+  .myButton {
+    padding: 10px 20px;
+  }
+
+  .myButtonColor {
+    background: black;
+    padding: 10px 20px;
+    transition: background 0.6s ease;
+    &:hover{
+      background: #ffffff;
+      color: black;
+    }
+  }
+  .modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-bg);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    text-align: center;
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+    padding: 25px;
+  }
 }
+
 
 .info-container {
   display: flex;

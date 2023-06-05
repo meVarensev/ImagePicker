@@ -7,7 +7,7 @@ import {styled} from "@mui/system";
 import {FileUpload} from "./file-upload";
 import {useAppDispatch} from "../../../hooks/redux-hooks";
 import { clearPhoto} from "../../../store/file-slice";
-
+import {useNavigate} from "react-router-dom";
 
 const MyButton = styled(Button)(({theme}) => ({
     background: "var(--btn-color-grey)",
@@ -22,6 +22,8 @@ const MyButton = styled(Button)(({theme}) => ({
 
 const ButtonGroup = () => {
     const dispatch = useAppDispatch()
+    const navigate = useNavigate();
+    const navigateAllPhoto = () => navigate('/allPhoto');
     const handleClickClearPhotos = () => {
       dispatch(clearPhoto())
     }
@@ -36,10 +38,11 @@ const ButtonGroup = () => {
                 <FileUpload />
             </div>
 
-            <Button variant="text" disableElevation style={{color: "black"}}
+            <Button variant="text" disableElevation style={{color: "black"}} onClick={navigateAllPhoto}
                     startIcon={<OpenWithRoundedIcon/>}>
                 Развернуть
             </Button>
+
         </div>
     );
 };

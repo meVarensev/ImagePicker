@@ -3,22 +3,20 @@ import MobileStepper from '@mui/material/MobileStepper';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import {IDotsMobileStepperProps} from "../../helper/types";
 
-
-interface IDotsMobileStepperProps {
-    lengthImgList: number
-    goToNextPhoto: () => void
-    goToPreviousPhoto: () => void
-    currentIndex: number
+interface IProps {
+    props: IDotsMobileStepperProps
 }
 
-const DotsMobileStepper: React.FC<IDotsMobileStepperProps> = ({
-                                                                  lengthImgList,
-                                                                  goToNextPhoto,
-                                                                  goToPreviousPhoto,
-                                                                  currentIndex
-                                                              }) => {
+const DotsMobileStepper: React.FC<IProps> = ({props}) => {
 
+    const {
+        lengthImgList,
+        goToNextPhoto,
+        goToPreviousPhoto,
+        currentIndex
+    } = props
 
     const halfLengthImgList = Number((lengthImgList / 2).toFixed())
     const halfCurrentIndex = Number((currentIndex / 2).toFixed())
@@ -31,7 +29,7 @@ const DotsMobileStepper: React.FC<IDotsMobileStepperProps> = ({
             sx={{maxWidth: 400, flexGrow: 1, bgcolor: 'transparent'}}
             nextButton={
                 <Button size="small" onClick={goToNextPhoto}
-                        disabled={halfCurrentIndex === halfLengthImgList- 1}
+                        disabled={halfCurrentIndex === halfLengthImgList - 1}
                         endIcon={<KeyboardArrowRight/>}>
                     Next
                 </Button>

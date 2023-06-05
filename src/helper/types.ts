@@ -11,3 +11,11 @@ export interface IPropsModalValue {
     text: string
     strongText: string
 }
+
+
+export interface IDotsMobileStepperProps {
+    lengthImgList: number
+    goToNextPhoto: () => void
+    goToPreviousPhoto: () => void
+    currentIndex: number
+}

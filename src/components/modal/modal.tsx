@@ -7,19 +7,17 @@ import {ShowInfo} from "./show-info";
 import {modalValueErrorInfo, modalValueSuccessInfo} from "../../helper/modal-value";
 import {Box} from "@mui/material";
 
-
 function BasicModal() {
     const [open, setOpen] = useState(false);
     const draggedImage = useAppSelector((state) => state.files.draggedImages);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-
     return (
         <div>
             <Button
                 variant="contained"
-                style={{background: 'black', padding: '10px 20px'}}
+               className={styles.myButtonColor}
                 onClick={handleOpen}
             >
                 В корзину
@@ -39,7 +37,7 @@ function BasicModal() {
                         <ShowInfo props={modalValueSuccessInfo}/>
                         <Button
                             variant="contained"
-                            style={{padding: '10px 20px'}}
+                            className={styles.myButton}
                         >
                             Перейти в корзину
                         </Button>

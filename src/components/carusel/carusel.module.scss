@@ -1,8 +1,9 @@
-.caruselSection{
+.caruselSection {
   background: #dcdcdc;
   width: 100%;
   margin-bottom: 20px;
-  .wrapper{
+
+  .wrapper {
     padding: 0.5rem 1rem;
 
     @media (min-width: 767px) {
@@ -10,4 +11,12 @@
     }
   }
 
+}
+
+
+.wrapperDots {
+  display: flex;
+  justify-content:  center;
+  align-items: center;
+  width: 100%;
 }
