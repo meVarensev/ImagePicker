@@ -6,11 +6,10 @@ import { useAppDispatch } from '../../hooks/redux-hooks';
 import { setDraggedImage } from '../../store/file-slice';
 
 interface IDropFileProps {
-    activeStep: number;
     getPhotosForCurrentIndex: () => TypeUploadedFile[];
 }
 
-const DropFile: React.FC<IDropFileProps> = ({ activeStep, getPhotosForCurrentIndex }) => {
+const DropFile: React.FC<IDropFileProps> = ({  getPhotosForCurrentIndex }) => {
     const dispatch = useAppDispatch();
 
     const handleDrop = (e: DragEvent<HTMLDivElement>) => {
@@ -72,5 +71,3 @@ const DropFile: React.FC<IDropFileProps> = ({ activeStep, getPhotosForCurrentInd
 };
 
 export { DropFile };
-
-

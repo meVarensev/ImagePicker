@@ -18,7 +18,7 @@ const SectionCarusel = () => {
     return (
         <section className={style.caruselSection}>
             <div className={style.wrapper}>
-                <DropFile activeStep={currentIndex} getPhotosForCurrentIndex={getPhotosForCurrentIndex}/>
+                <DropFile  getPhotosForCurrentIndex={getPhotosForCurrentIndex}/>
                 {draggedImage.length !== 0 && (
                     <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100%"}}>
                         <DotsMobileStepper

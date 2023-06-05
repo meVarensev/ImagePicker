@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 
 const DefaultImg = () => {
     return (
-        <Box sx={{height: "100%"}}>
+        <div sx={{height: "100%"}}>
             <Box style={{
                 width: 200,
                 height: 125,
@@ -20,7 +20,7 @@ const DefaultImg = () => {
                     Добавить фотографию
                 </Typography>
             </Box>
-        </Box>
+        </div>
     );
 };
 

@@ -7,17 +7,25 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:react-hooks/recommended",
-        "plugin:react/jsx-runtime",
         "plugin:import/recommended",
         "airbnb",
         "prettier"
     ],
-
     "plugins": [
         "react-hooks",
         "react"
     ],
-
+    "parserOptions": {
+        "ecmaVersion": 2021,
+        "sourceType": "module"
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        }
+    },
     "rules": {
         "react/react-in-jsx-scope": "off",
         "import/prefer-default-export": "off",

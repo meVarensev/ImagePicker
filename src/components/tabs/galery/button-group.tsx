@@ -1,7 +1,7 @@
 import React from 'react';
 import style from "./galery.module.scss";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import {Button} from "@mui/material";
+import {Box, Button} from "@mui/material";
 import OpenWithRoundedIcon from "@mui/icons-material/OpenWithRounded";
 import {styled} from "@mui/system";
 import {FileUpload} from "./file-upload";
@@ -33,7 +33,6 @@ const ButtonGroup = () => {
                           startIcon={<ClearRoundedIcon/>}>
                     Очистить
                 </MyButton>
-
                 <FileUpload />
             </div>
 

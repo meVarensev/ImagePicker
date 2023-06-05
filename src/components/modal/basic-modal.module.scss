@@ -1,0 +1,26 @@
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-bg);
+  border: var(--border);
+  box-shadow: var(--shadow);
+  text-align: center;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+}
+
+.Severity {
+  width: 100%;
+  text-align: left;
+}

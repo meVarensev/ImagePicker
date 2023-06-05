@@ -21,8 +21,9 @@ export const fileSlice = createSlice({
         },
         clearPhoto: (state) => {
             state.filesGalery = []
+            state.draggedImages = []
         },
-        setDraggedImage:(state, action: PayloadAction<TypeUploadedFile>) => {
+        setDraggedImage: (state, action: PayloadAction<TypeUploadedFile>) => {
             const newImage = action.payload;
             const existingImage = state.draggedImages.find(
                 (image) => image.filename === newImage.filename
@@ -35,7 +36,7 @@ export const fileSlice = createSlice({
     },
 })
 
-export const {addPhoto, clearPhoto,setDraggedImage} = fileSlice.actions
+export const {addPhoto, clearPhoto, setDraggedImage} = fileSlice.actions
 
 
 const fileReducer = fileSlice.reducer
