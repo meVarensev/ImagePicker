@@ -4,11 +4,11 @@ import {BasicTabs} from "./basic-tabs";
 
 const TabsSection = () => {
     return (
-        <section className={style.tabSection}>
+        <div className={style.tabSection}>
             <div className={style.wrapper}>
                 <BasicTabs/>
             </div>
-        </section>
+        </div>
     );
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import style from "./galery.module.scss";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import {Box, Button} from "@mui/material";
+import { Button} from "@mui/material";
 import OpenWithRoundedIcon from "@mui/icons-material/OpenWithRounded";
 import {styled} from "@mui/system";
 import {FileUpload} from "./file-upload";
