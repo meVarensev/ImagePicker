@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 
 const DefaultImg = () => {
     return (
-        <div sx={{height: "100%"}}>
+        <div style={{height: "100%"}}>
             <Box style={{
                 width: 200,
                 height: 125,
