@@ -1,18 +1,20 @@
-import * as React from 'react';
+import React, { useMemo } from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 
-interface ITemplateTabValue{
-    img: string
-    title: string
+interface ITemplateTabValue {
+    img: string;
+    title: string;
 }
+
 interface ITemplateTabProps {
-    itemData: ITemplateTabValue[]
+    itemData: ITemplateTabValue[];
 }
-const  TemplateTab: React.FC<ITemplateTabProps> = ({itemData}) =>  {
-    return (
-        <ImageList sx={{ height: 520 }} cols={3} gap={8}>
-            {itemData.map((item) => (
+
+const TemplateTab: React.FC<ITemplateTabProps> = ({ itemData }) => {
+    const memoizedImageListItems = useMemo(
+        () =>
+            itemData.map((item) => (
                 <ImageListItem key={item.img}>
                     <img
                         src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
@@ -21,10 +23,15 @@ const  TemplateTab: React.FC<ITemplateTabProps> = ({itemData}) =>  {
                         loading="lazy"
                     />
                 </ImageListItem>
-            ))}
+            )),
+        [itemData]
+    );
+
+    return (
+        <ImageList sx={{ height: 520 }} cols={3} gap={8}>
+            {memoizedImageListItems}
         </ImageList>
     );
-}
+};
 
-export {TemplateTab}
-
+export { TemplateTab };

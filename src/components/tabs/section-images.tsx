@@ -1,46 +1,40 @@
-import React, {DragEvent} from 'react';
-import {Box, Button} from '@mui/material';
+import React, {DragEvent, useMemo} from 'react';
+import {Box,} from '@mui/material';
 import {ImageList, ImageListItem} from '@mui/material';
 import {TypeUploadedFile} from "../../helper/types";
 import {useAppDispatch} from "../../hooks/redux-hooks";
 import {setDraggedImage} from "../../store/file-slice";
+import {useInView} from 'react-intersection-observer';
+import {ImageItem} from "./galery-tab/image-item";
 
 interface ISectionImagesProps {
     files: TypeUploadedFile[];
-    goToNextPhoto: () => void
 }
 
-const SectionImages: React.FC<ISectionImagesProps> = ({files, goToNextPhoto}) => {
+const SectionImages: React.FC<ISectionImagesProps> = ({files}) => {
     const dispatch = useAppDispatch()
+
     const handleDragStart = (e: DragEvent<HTMLImageElement>, file: TypeUploadedFile) => {
         e.dataTransfer.setData("text/plain", JSON.stringify(file));
     };
     const handleClickImg = (img: TypeUploadedFile) => {
         dispatch(setDraggedImage(img))
     }
+    const memoizedFilesGalery = useMemo(() => files, [files]);
 
     return (
         <Box sx={{height: 520, overflowY: 'scroll'}}>
             <ImageList variant="masonry" cols={5} gap={8}>
-                {files.map((file) => (
-                    <ImageListItem key={file.filename}>
-                        <img
-                            style={{cursor: "pointer"}}
-                            src={`${file.url}`}
-                            srcSet={`${file.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                            alt={file.filename}
-                            loading="lazy"
-                            draggable={true}
-                            onDragStart={(e) => handleDragStart(e, file)}
-                            onClick={() => handleClickImg(file)}
-                        />
-                    </ImageListItem>
-                ))}
+                {memoizedFilesGalery.map((file) => (
+                        <ImageItem key={file.filename}
+                            file={file}
+                            onClick={handleClickImg}
+                            onDragStart={handleDragStart}/>
+                    ))}
             </ImageList>
-            <Button onClick={goToNextPhoto}>goToNextPhoto</Button>
         </Box>
     );
 };
 
-export {SectionImages};
+export default SectionImages;
 

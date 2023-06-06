@@ -1,16 +1,18 @@
-import {useState} from 'react';
-import {TypeUploadedFile} from "../helper/types";
+import { useState } from 'react';
+import { TypeUploadedFile } from '../helper/types';
 
 interface IUsePhotoGallery {
     getPhotosForCurrentIndex: () => TypeUploadedFile[];
     goToNextPhoto: () => void;
     currentIndex: number;
-    goToPreviousPhoto: () => void
+    goToPreviousPhoto: () => void;
 }
 
-const usePhotoGallery = (draggedImage: TypeUploadedFile[] , value: number): IUsePhotoGallery => {
+const usePhotoGallery = (
+    images: TypeUploadedFile[],
+    value: number
+): IUsePhotoGallery => {
     const [currentIndex, setCurrentIndex] = useState(0);
-
     const goToNextPhoto = () => {
         setCurrentIndex((prevIndex) => prevIndex + value);
     };
@@ -20,8 +22,10 @@ const usePhotoGallery = (draggedImage: TypeUploadedFile[] , value: number): IUse
     };
 
     const getPhotosForCurrentIndex = () => {
-        return draggedImage.slice(currentIndex, currentIndex + value);
+        return images.slice(currentIndex, currentIndex + value);
     };
+
+
 
     return {
         currentIndex,
@@ -29,8 +33,6 @@ const usePhotoGallery = (draggedImage: TypeUploadedFile[] , value: number): IUse
         goToPreviousPhoto,
         getPhotosForCurrentIndex,
     };
-}
+};
 
-//TODO: in progress
-
-export {usePhotoGallery}
+export { usePhotoGallery };
