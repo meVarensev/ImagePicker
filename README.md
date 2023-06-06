@@ -1,6 +1,5 @@
 # ImagePicker
-//## Todo: In progress//
-### Stack
+## Stack
 * TypeScript
 * React
 * Redux Toolkit
@@ -10,7 +9,7 @@
 * Sass
 * Vite
 
-### Пакеты
+## Пакеты
   * react-dom
   * react-redux
   * react-router-dom
