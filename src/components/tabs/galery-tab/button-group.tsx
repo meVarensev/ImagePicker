@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import style from "./galery.module.scss";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import { Button} from "@mui/material";
+import {Button} from "@mui/material";
 import OpenWithRoundedIcon from "@mui/icons-material/OpenWithRounded";
 import {styled} from "@mui/system";
 import {FileUpload} from "./file-upload";
-import {useAppDispatch} from "../../../hooks/redux-hooks";
-import { clearPhoto} from "../../../store/file-slice";
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux-hooks";
+import {clearPhoto} from "../../../store/file-slice";
 import {useNavigate} from "react-router-dom";
+import {TypeUploadedFile} from "../../../helper/types";
+import {ShowInfo} from "../../modal/show-info";
+import {modalValueWarningInfo} from "../../../helper/modal-value";
 
 const MyButton = styled(Button)(({theme}) => ({
     background: "var(--btn-color-grey)",
@@ -18,32 +21,32 @@ const MyButton = styled(Button)(({theme}) => ({
 
 }));
 
+interface IButtonGroupProps {
+    navigateAllPhoto: () => void
+}
 
-
-const ButtonGroup = () => {
+const ButtonGroup:React.FC<IButtonGroupProps> = ({navigateAllPhoto}) => {
     const dispatch = useAppDispatch()
-    const navigate = useNavigate();
-    const navigateAllPhoto = () => navigate('/allPhoto');
     const handleClickClearPhotos = () => {
-      dispatch(clearPhoto())
+        dispatch(clearPhoto())
     }
 
     return (
-        <div className={style.buttonGroup}>
-            <div style={{display: "flex"}}>
-                <MyButton variant="contained" disableElevation onClick={handleClickClearPhotos}
-                          startIcon={<ClearRoundedIcon/>}>
-                    Очистить
-                </MyButton>
-                <FileUpload />
+        <>
+            <div className={style.buttonGroup}>
+                <div style={{display: "flex"}}>
+                    <MyButton variant="contained" disableElevation onClick={handleClickClearPhotos}
+                              startIcon={<ClearRoundedIcon/>}>
+                        Очистить
+                    </MyButton>
+                    <FileUpload/>
+                </div>
+                <Button variant="text" disableElevation style={{color: "black"}} onClick={navigateAllPhoto}
+                        startIcon={<OpenWithRoundedIcon/>}>
+                    Развернуть
+                </Button>
             </div>
-
-            <Button variant="text" disableElevation style={{color: "black"}} onClick={navigateAllPhoto}
-                    startIcon={<OpenWithRoundedIcon/>}>
-                Развернуть
-            </Button>
-
-        </div>
+        </>
     );
 };
 

@@ -6,12 +6,18 @@ import styles from "./basic-modal.module.scss";
 import {ShowInfo} from "./show-info";
 import {modalValueErrorInfo, modalValueSuccessInfo} from "../../helper/modal-value";
 import {Box} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 function BasicModal() {
     const [open, setOpen] = useState(false);
     const draggedImage = useAppSelector((state) => state.files.draggedImages);
+    const navigate = useNavigate();
+
+    const navigatePayment = () => navigate('/payment');
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+
 
     return (
         <div>
@@ -38,6 +44,7 @@ function BasicModal() {
                         <Button
                             variant="contained"
                             className={styles.myButton}
+                            onClick={navigatePayment}
                         >
                             Перейти в корзину
                         </Button>
