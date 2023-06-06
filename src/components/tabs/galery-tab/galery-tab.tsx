@@ -33,7 +33,7 @@ const GaleryTab = () => {
     return (
         <div>
             <ButtonGroup navigateAllPhoto={navigateAllPhoto} />
-            {(vueError && !files.length)  && <ShowInfo props={modalValueWarningInfo}/>}
+            {(vueError && !files.length)  && <ShowInfo  props={modalValueWarningInfo}/>}
             {!files.length && <DefaultImg />}
             {files.length > 0 && <div>{SectionImages}</div>}
         </div>
