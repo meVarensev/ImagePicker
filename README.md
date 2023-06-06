@@ -1,5 +1,5 @@
 # ImagePicker
-## Todo: In progress
+//## Todo: In progress
 ### Stack
 * TypeScript
 * React
